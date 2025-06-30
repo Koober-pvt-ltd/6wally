@@ -8,14 +8,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->longText('images')->nullable();
+            $table->tinyInteger('refundable')->default(1); // <- after() hata diya
         });
     }
 
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('images');
+            $table->dropColumn('refundable');
         });
     }
 };

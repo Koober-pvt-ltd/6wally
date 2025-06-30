@@ -6,31 +6,31 @@ use Illuminate\Support\Facades\Schema;
 
 class AddCategorySubCategoryAndSubSubCategoryAddInProductTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('category_id')->after('category_ids')->nullable();
-            $table->string('sub_category_id')->after('category_id')->nullable();
-            $table->string('sub_sub_category_id')->after('sub_category_id')->nullable();
+            if (!Schema::hasColumn('products', 'category_id')) {
+                $table->string('category_id')->nullable(); // removed 'after'
+            }
+
+            if (!Schema::hasColumn('products', 'sub_category_id')) {
+                $table->string('sub_category_id')->nullable(); // removed 'after'
+            }
+
+            if (!Schema::hasColumn('products', 'sub_sub_category_id')) {
+                $table->string('sub_sub_category_id')->nullable(); // removed 'after'
+            }
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            Schema::dropIfExists('category_id');
-            Schema::dropIfExists('sub_category_id');
-            Schema::dropIfExists('sub_sub_category_id');
+            $table->dropColumn([
+                'category_id',
+                'sub_category_id',
+                'sub_sub_category_id',
+            ]);
         });
     }
 }

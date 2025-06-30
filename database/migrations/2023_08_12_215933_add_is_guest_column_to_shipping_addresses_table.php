@@ -14,7 +14,8 @@ class AddIsGuestColumnToShippingAddressesTable extends Migration
     public function up()
     {
         Schema::table('shipping_addresses', function (Blueprint $table) {
-            $table->tinyInteger('is_guest')->default(0)->after('customer_id');
+            $table->tinyInteger('is_guest')->default(0)->after('id'); // ya kisi aur existing column ke baad
+
         });
     }
 

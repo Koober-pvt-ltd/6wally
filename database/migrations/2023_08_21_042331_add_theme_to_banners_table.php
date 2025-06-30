@@ -14,7 +14,7 @@ class AddThemeToBannersTable extends Migration
     public function up()
     {
         Schema::table('banners', function (Blueprint $table) {
-            $table->string('theme')->after('banner_type')->default('default');
+            $table->string('theme')->after('title')->default('default');
         });
     }
 

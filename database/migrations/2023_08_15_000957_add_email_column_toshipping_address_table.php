@@ -14,7 +14,7 @@ class AddEmailColumnToshippingAddressTable extends Migration
     public function up()
     {
         Schema::table('shipping_addresses', function (Blueprint $table) {
-            $table->string('email')->nullable()->after('contact_person_name');
+            $table->string('email')->nullable()->after('id');
         });
     }
 

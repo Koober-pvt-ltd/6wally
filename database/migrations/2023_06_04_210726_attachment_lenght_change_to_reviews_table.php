@@ -12,11 +12,14 @@ class AttachmentLenghtChangeToReviewsTable extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->string('attachment', 255)->change();
-        });
-    }
+{
+    Schema::table('reviews', function (Blueprint $table) {
+        if (Schema::hasColumn('reviews', 'attachment')) {
+            $table->text('attachment')->change();
+        }
+    });
+}
+
 
     /**
      * Reverse the migrations.

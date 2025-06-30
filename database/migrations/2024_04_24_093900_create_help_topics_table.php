@@ -7,15 +7,16 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->longText('images')->nullable();
+        Schema::create('help_topics', function (Blueprint $table) {
+            $table->id();
+            $table->string('question');
+            $table->text('answer')->nullable();
+            $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('images');
-        });
+        Schema::dropIfExists('help_topics');
     }
 };

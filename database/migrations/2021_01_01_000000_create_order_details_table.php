@@ -24,7 +24,10 @@ class CreateOrderDetailsTable extends Migration
     }
 
     public function down()
-    {
-        Schema::dropIfExists('order_details');
+  {
+        Schema::table('order_details', function (Blueprint $table) {
+            $table->dropColumn('digital_file_after_sell');
+            $table->dropColumn('seller_id');
+        });
     }
 }

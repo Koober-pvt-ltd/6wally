@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('chattings', function (Blueprint $table) {
-           $table->tinyInteger('seen_notification')->nullable()->default(0)->after('status');
-           $table->string('notification_receiver', 20)->nullable()->comment('admin, seller, customer, deliveryman')->after('status');
-
+            //
         });
     }
 
@@ -24,8 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('chattings', function (Blueprint $table) {
-            $table->dropColumn('seen_notification');
-            $table->dropColumn('notification_receiver');
+            //
         });
     }
 };

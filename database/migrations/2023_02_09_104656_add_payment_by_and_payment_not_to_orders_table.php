@@ -6,29 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 class AddPaymentByAndPaymentNotToOrdersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('payment_by')->after('transaction_ref')->nullable();
-            $table->text('payment_note')->after('payment_by')->nullable();
+            if (!Schema::hasColumn('orders', 'payment_by')) {
+                $table->string('payment_by')->nullable(); // removed after('transaction_ref')
+            }
+
+            if (!Schema::hasColumn('orders', 'payment_note')) {
+                $table->text('payment_note')->nullable(); // removed after('payment_by')
+            }
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            Schema::dropIfExists('payment_by');
-            Schema::dropIfExists('payment_note');
+            $table->dropColumn(['payment_by', 'payment_note']);
         });
     }
 }

@@ -13,19 +13,21 @@ class CreateAddFundBonusCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('add_fund_bonus_categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
-            $table->string('bonus_type', 50); // percentage, flat
-            $table->float('bonus_amount', 14, 2)->default(0);
-            $table->float('min_add_money_amount', 14, 2)->default(0);
-            $table->float('max_bonus_amount', 14, 2)->default(0);
-            $table->dateTime('start_date_time')->nullable();
-            $table->dateTime('end_date_time')->nullable();
-            $table->boolean('is_active')->default(0);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('add_fund_bonus_categories')) {
+            Schema::create('add_fund_bonus_categories', function (Blueprint $table) {
+                $table->id();
+                $table->string('title')->nullable();
+                $table->text('description')->nullable();
+                $table->enum('bonus_type', ['percentage', 'flat'])->default('flat'); // safer enum
+                $table->decimal('bonus_amount', 14, 2)->default(0);
+                $table->decimal('min_add_money_amount', 14, 2)->default(0);
+                $table->decimal('max_bonus_amount', 14, 2)->default(0);
+                $table->dateTime('start_date_time')->nullable();
+                $table->dateTime('end_date_time')->nullable();
+                $table->boolean('is_active')->default(0);
+                $table->timestamps();
+            });
+        }
     }
 
     /**

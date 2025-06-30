@@ -6,27 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 class AddIsGuestColumnToOrdersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->tinyInteger('is_guest')->default(0)->after('customer_id');
+            if (!Schema::hasColumn('orders', 'is_guest')) {
+                $table->tinyInteger('is_guest')->default(0)->after('id'); // make sure 'id' exists in orders table
+            }
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('is_guest');
+            if (Schema::hasColumn('orders', 'is_guest')) {
+                $table->dropColumn('is_guest');
+            }
         });
     }
 }
