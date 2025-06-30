@@ -14,8 +14,8 @@ class CreateOrderDetailsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->integer('qty')->default(1);
             $table->double('price', 8, 2);
-            $table->decimal('tax', 8, 2)->default(0); // ✅ Add this line
-            $table->decimal('discount', 8, 2)->default(0); // ✅ Required to fix migration
+            //$table->decimal('tax', 8, 2)->default(0); // ✅ Add this line
+            //$table->decimal('discount', 8, 2)->default(0); // ✅ Required to fix migration
 
 
            

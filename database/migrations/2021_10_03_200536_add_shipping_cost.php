@@ -11,12 +11,14 @@ class AddShippingCost extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+   public function up()
+{
+    if (!Schema::hasColumn('orders', 'shipping_cost')) {
         Schema::table('orders', function (Blueprint $table) {
-            $table->float('shipping_cost')->default(0);
+            $table->double('shipping_cost', 8, 2)->default(0);
         });
     }
+}
 
     /**
      * Reverse the migrations.

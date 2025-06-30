@@ -6,29 +6,37 @@ use Illuminate\Support\Facades\Schema;
 
 class UpdateStringLimit extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('order_status',50)->change();
-            $table->string('payment_method',100)->change();
-            $table->float('order_amount')->change();
+            if (Schema::hasColumn('orders', 'order_status')) {
+                $table->string('order_status', 50)->change();
+            }
+
+            if (Schema::hasColumn('orders', 'payment_method')) {
+                $table->string('payment_method', 100)->change();
+            }
+
+            if (Schema::hasColumn('orders', 'order_amount')) {
+                $table->float('order_amount')->change();
+            }
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            //
+            if (Schema::hasColumn('orders', 'order_status')) {
+                $table->string('order_status')->change();
+            }
+
+            if (Schema::hasColumn('orders', 'payment_method')) {
+                $table->string('payment_method')->change();
+            }
+
+            if (Schema::hasColumn('orders', 'order_amount')) {
+                $table->float('order_amount', 8, 2)->change();
+            }
         });
     }
 }
